@@ -64,6 +64,7 @@ def main():
                 
         print(f"Epoch {epoch+1}/{EPOCHS}, Loss: {epoch_loss / len(x_train)}")
         
+
     # Evaluate
     print("Evaluating...")
     output = model.predict(x_test)
@@ -71,6 +72,23 @@ def main():
     truth = np.argmax(y_test, axis=1)
     accuracy = np.mean(predictions == truth)
     print(f"Test Accuracy: {accuracy * 100:.2f}%")
+    
+    # Visualize one result
+    import matplotlib.pyplot as plt
+    
+    idx = np.random.randint(0, len(x_test))
+    image = x_test[idx].reshape(28, 28)
+    # The image was normalized, let's keep it as is or multiply by 255 for display if needed.
+    # matplotlib scales automatically.
+    
+    pred_class = predictions[idx]
+    true_class = truth[idx]
+    
+    print(f"Predicting sample {idx}: Truth={true_class}, Prediction={pred_class}")
+    
+    plt.imshow(image, cmap='gray')
+    plt.title(f"Prediction: {pred_class}, Truth: {true_class}")
+    plt.show()
 
 if __name__ == "__main__":
     main()
